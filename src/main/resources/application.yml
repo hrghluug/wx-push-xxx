@@ -1,0 +1,24 @@
+#去申请 https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
+wx:
+  config:
+    appId: "wxf3f7474760f1807f"
+    appSecret: "2c9f87c51f30e0304ba3f0315dcb4af5"
+    templateId: "th7RgzKlcl8Azk3jccG7H8110cQXxETM4sDgOx88ewM"
+    openidList:
+      - "oSGVF6lcM84tVt5FjT46UjUjjxDU"
+weather:
+  config:
+#    http://www:nmc:cn/rest/province/A${FJ} 城市code 查询
+    city: 58847
+info:
+  config:
+    maleName: "阿强"
+    femaleName: "阿珍"
+    maleBirth: "10-15"
+    maleLunar: false
+    femaleBirth: "09-20"
+    femaleLunar: true
+    togetherDate: "2022-10-14"
+server:
+  port: 8081
+
