@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
 ;
@@ -45,7 +46,7 @@ public class PushService {
 
     private SimpleCache cache = new SimpleCache();
 
-    @Scheduled(cron = "0 30 07 ? * *")
+    @Scheduled(cron = "0 30 7 ? * *")
     public void send() {
         try {
             send(wordService.getWordInfo(), weatherService.getWeatherInfo(), infoService.getBasicInfo());
@@ -67,7 +68,7 @@ public class PushService {
         sendRequest(accessToken, parseArgs);
     }
 
-    private String getAccessToken(String appid, String secret) {
+    private String getAccessToken(String appid, String secret) throws JsonProcessingException {
         if (cache != null && cache.expired()) {
             return cache.accessToken;
         }
@@ -75,6 +76,7 @@ public class PushService {
         map.put("appid", appid);
         map.put("secret", secret);
         WxAccessTokenResponse response = restTemplate.getForObject(WX_ACCESS_URL, WxAccessTokenResponse.class, map);
+        Assert.hasText(response.getAccess_token(),String.format("错误的配置:%s",mapper.writeValueAsString(map)));
         String accessToken = response.getAccess_token();
         cache.setAccessToken(accessToken);
         cache.setTimeStamp(response.getExpires_in() * 1000 + System.currentTimeMillis() - 10 * 60 * 1000);

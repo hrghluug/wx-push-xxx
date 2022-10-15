@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 使用范围 类或者 字段上 都存在是字段上的优先
+ * 配置 显示字体的颜色
  * @author xgh 2022/10/12
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 @Color("#ffea00")
 public class WordInfo {
+    @Color("#123456")
     @JsonSerialize(using = WxJsonSerializer.class)
     private String proverb_En;
     @JsonSerialize(using = WxJsonSerializer.class)

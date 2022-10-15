@@ -1,22 +1,25 @@
 #去申请 https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 wx:
   config:
-    appId: "appId"
-    appSecret: "appSecret"
-    templateId: "templateId"
+    appId: "wxf3f7474760f1807f"
+    appSecret: "2c9f87c51f30e0304ba3f0315dcb4af5"
+    templateId: "CRD0-M_nXXvN-OEp6l2to8cH7jc0QG78wXGb96IiUQA"
     openidList:
-      - "openid"
+      - "oSGVF6lcM84tVt5FjT46UjUjjxDU"
 weather:
   config:
-#    http://www:nmc:cn/rest/province/A${FJ} 城市code 查询
+    #    http://www.nmc.cn/rest/province/A${Province}  Province= 省份前两个首字母大写
+    #  like 福建省   http://www.nmc.cn/rest/province/AFJ   城市code 查询
     city: 58847
 info:
   config:
     maleName: "阿强"
     femaleName: "阿珍"
     maleBirth: "10-15"
+    #    男生是否是农历生日
     maleLunar: false
     femaleBirth: "09-20"
+    #  女生是否是农历生日
     femaleLunar: true
     togetherDate: "2022-10-14"
 
