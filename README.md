@@ -1,3 +1,7 @@
+ ```java
+ // 定时任务 cron 表达式
+ @Scheduled(cron = "0 30 7 ? * *") com.example.wx.service.PushService#send() 
+```
 ```yaml
 #微信公众号测试号申请链接 https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 wx:
