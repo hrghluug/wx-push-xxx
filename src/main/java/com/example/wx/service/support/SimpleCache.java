@@ -1,6 +1,5 @@
 package com.example.wx.service.support;
 
-import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

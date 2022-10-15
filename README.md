@@ -62,3 +62,7 @@ public class WordInfo {
 
 主动发送接口: {yourIp}:{yourPort}/send 
 更换模板接口: {yourIp}:{yourPort}/template/{templateId}  
+
+
+中文乱码问题: 
+添加 jvm 参数 -Dfile.encoding=UTF-8

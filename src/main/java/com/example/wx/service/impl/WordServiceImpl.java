@@ -2,7 +2,11 @@ package com.example.wx.service.impl;
 
 import com.example.wx.service.WordService;
 import com.example.wx.service.entity.WordInfo;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -16,16 +20,18 @@ import java.util.*;
  * @author xgh 2022/10/13
  */
 @Service
-public class WordServiceImpl implements WordService {
-    static final Map<String, String> proverb = new HashMap<>();
+public class WordServiceImpl implements WordService, ResourceLoaderAware {
+    final Map<String, String> proverb = new HashMap<>();
 
-    static final List<String> morning = new ArrayList<>();
-    static final List<String> randomKeyList = new ArrayList<>();
+    final List<String> morning = new ArrayList<>();
+    final List<String> randomKeyList = new ArrayList<>();
 
-    static {
-        URL url = ClassLoader.getSystemClassLoader().getResource("proverbZh2En.properties");
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        Resource proverbResource = resourceLoader.getResource("classpath:proverbZh2En.properties");
+        Assert.state(proverbResource.exists(),"读取不到文件:proverbZh2En.properties");
         try (BufferedReader bufferedReader
-                     = new BufferedReader(new InputStreamReader(url.openStream()))) {
+                     = new BufferedReader(new InputStreamReader(proverbResource.getInputStream(),"UTF-8"))) {
             String str = null;
             while ((str = bufferedReader.readLine()) != null) {
                 if (StringUtils.hasText(str)) {
@@ -38,14 +44,15 @@ public class WordServiceImpl implements WordService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        url = ClassLoader.getSystemClassLoader().getResource("morning.txt");
+        Resource morning = resourceLoader.getResource("classpath:morning.txt");
+        Assert.state(morning.exists(),"读取不到文件:morning.txt");
         try (BufferedReader bufferedReader
-                     = new BufferedReader(new InputStreamReader(url.openStream()))) {
+                     = new BufferedReader(new InputStreamReader(morning.getInputStream(),"UTF-8"))) {
             String str = null;
             while ((str = bufferedReader.readLine()) != null) {
                 if (StringUtils.hasText(str)) {
                     if (!str.trim().startsWith("--")) {
-                        morning.add(str.trim());
+                        this.morning.add(str.trim());
                     }
                 }
             }
@@ -53,6 +60,7 @@ public class WordServiceImpl implements WordService {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public WordInfo getWordInfo() {
@@ -66,4 +74,5 @@ public class WordServiceImpl implements WordService {
         info.setMessage(message);
         return info;
     }
+
 }
